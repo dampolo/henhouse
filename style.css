@@ -47,6 +47,10 @@
     isolation: isolate;
     }
 
+    ul {
+        list-style-type: none;
+    }
+
 
 body {
     display: flex;
@@ -74,6 +78,10 @@ body {
     margin: 10px;
 }
 
+.all-animals {
+    display: flex;
+}
+
 body div {
  display: flex;
  flex-direction: column;
@@ -87,14 +95,26 @@ body div {
     margin: 20px;
 }
 
+.all-animals {
+    width: 100%;
+}
+
 .list-of-all-hens,
-.nowa-kura {
+.list-of-all-cocks {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 320px;
     gap: 8px;
+    flex: 1;
+}
+
+.input-button {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-button input {
+    width: 30px;
 }
 
 select,

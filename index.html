@@ -38,22 +38,31 @@
             </div>
         </div>
 
-        <h3>List of all hens:</h3>
+        
+        <section class="all-animals">
+            
+            <div class="list-of-all-hens">
+                <h3>List of all Hens:</h3>
+                <ul class="amount-of-all-hens">
+                </ul>
+            </div>
 
+            
+            <div class="list-of-all-cocks">
+                <h3>List of all cocks:</h3>
 
-        <div class="list-of-all-hens">
-        </div>
-
-
+                <ul class="amount-of-all-cocks">
+                </ul>
+            </div>
+            
+        </section>
         <div class="add-new-hen-container">
             <h3>Add new tier:</h3>
-            <div class="ilosc-jaj">
-            </div>
             <div class="new-hen-input-container">
 
                 <form onsubmit="addNewHen(); return false;">
                     <input id="name-new-hen" class="name-new-hen" type="text" placeholder="Name" required>
-                    <input id="eggs-new-hen" class="eggs-new-hen" type="number" placeholder="Eggs">
+                    <input id="eggs-new-hen" class="eggs-new-hen" type="number" min="1" placeholder="Eggs">
                     <select name="animals" id="animals">
                         <option value="hen">Hen</option>
                         <option value="cock">Cock</option>
@@ -65,6 +74,7 @@
         </div>
 
     </div>
+    <script src="./data.js"></script>
     <script src="./script.js"></script>
 </body>
 </html>
