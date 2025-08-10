@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurnik</title>
+    <link rel="shortcut icon" href="./img/1_w.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="hen-house"></div>
+
+    <div>
+        <h1>Henhouse</h1>
+        <h2>Overview</h2>
+
+        <div class="overview">
+            <div>
+                <h3>Cocks</h3>
+                    <div class="all-cocks">
+                        0
+                    </div>
+            </div>
+            <div>
+                <h3>Hens</h3>
+                <div class="all-hens">
+                    0
+                </div>
+            </div>
+
+                        <div>
+                <h3>Eggs</h3>
+                <div class="all-eggs">
+                    0
+                </div>
+            </div>
+        </div>
+
+        <h3>List of all hens:</h3>
+
+
+        <div class="list-of-all-hens">
+        </div>
+
+
+        <div class="add-new-hen-container">
+            <h3>Add new tier:</h3>
+            <div class="ilosc-jaj">
+            </div>
+            <div class="new-hen-input-container">
+
+                <form onsubmit="addNewHen(); return false;">
+                    <input id="name-new-hen" class="name-new-hen" type="text" placeholder="Name" required>
+                    <input id="eggs-new-hen" class="eggs-new-hen" type="number" placeholder="Eggs">
+                    <select name="animals" id="animals">
+                        <option value="hen">Hen</option>
+                        <option value="cock">Cock</option>
+                    </select>
+                    <button type="submit" class="add-new-hen-container">Add</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
