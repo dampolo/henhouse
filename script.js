@@ -104,3 +104,7 @@ function addNewEggs(index) {
     document.querySelector('.all-hens').innerHTML = allHens();
     document.querySelector('.all-roosters').innerHTML = allRoosters();
 }
+
+function collectEggs() {
+    
+}
