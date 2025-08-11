@@ -108,19 +108,23 @@ function addNewEggs(index) {
 function collectEggs() {
     let collectedEggs = document.querySelector('.collected-eggs');
 
-    let allLaidEggs = document.querySelector('.all-eggs');
-
     let currentTotalCollectedEggs = parseInt(collectedEggs.innerText, 10) || 0;
     
-    let currentTotalLaidEggs = parseInt(allLaidEggs.innerText, 10) || 0;
-
     let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
     
-    allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
-
     collectedEggs.innerText = currentTotalCollectedEggs + collectedEggsInput;
     
     document.querySelector('.number-of-eggs').value = "";
+
+    reduceEggs(collectedEggsInput)
+}
+
+function reduceEggs(collectedEggsInput) {
+    
+    let currentTotalLaidEggs = parseInt(document.querySelector('.all-eggs').innerText, 10) || 0;
+
+    allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
+
 }
 
 
