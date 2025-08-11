@@ -2,5 +2,5 @@ const jsonData = [
         {name: "Alina", eggs: 2, type: "hen"},
         {name: "Danuta", eggs: 3, type: "hen"},
         {name: "Jadwiga", eggs: 5, type: "hen"},
-        {name: "Mateusz", eggs: 5, type: "cock"}
+        {name: "Mateusz", eggs: 5, type: "rooster"}
 ];

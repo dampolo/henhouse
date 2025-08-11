@@ -3,12 +3,12 @@ const animalInput = document.querySelector(".name-new-hen");
 const eggsInput = document.querySelector(".eggs-new-hen");
 document.querySelector('.all-eggs').innerHTML = allEggs();
 document.querySelector('.all-hens').innerHTML = allHens();
-document.querySelector('.all-cocks').innerHTML = allCocks();
+document.querySelector('.all-roosters').innerHTML = allRoosters();
 
 
 
 selectAnimal.addEventListener("change", () => {
-  if (selectAnimal.value === "cock") {
+  if (selectAnimal.value === "rooster") {
     eggsInput.disabled = true;
     eggsInput.value = ""; // optional: clear value
   } else {
@@ -19,16 +19,16 @@ selectAnimal.addEventListener("change", () => {
 
 function renderAnimals() {
     const allHens = document.querySelector(".amount-of-all-hens");
-    const allCocks = document.querySelector(".amount-of-all-cocks");
+    const allRoosters = document.querySelector(".amount-of-all-roosters");
 
     allHens.innerHTML = "";
-    allCocks.innerHTML = "";
+    allRoosters.innerHTML = "";
 
     jsonData.forEach((animal, index) => {
         if(animal.type === 'hen'){
             allHens.innerHTML += creatAnimalHenHTML(animal, index);
         } else {
-            allCocks.innerHTML += creatAnimalCockHTML(animal, index)
+            allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index)
         }
     });
 }
@@ -45,7 +45,7 @@ function addNewAnimal() {
         jsonData.push({
             name: animalInput.value,
             eggs: 0,
-            type: "cock",
+            type: "rooster",
         });
     }
 
@@ -54,14 +54,14 @@ function addNewAnimal() {
     renderAnimals();
     allEggs();
     allHens();
-    allCocks();
+    allRoosters();
     document.querySelector('.all-eggs').innerHTML = allEggs();
     document.querySelector('.all-hens').innerHTML = allHens();
-    document.querySelector('.all-cocks').innerHTML = allCocks();
+    document.querySelector('.all-roosters').innerHTML = allRoosters();
 }
 
-function creatAnimalCockHTML(animal, index) {
-    return /*html*/ `<li>Cock ${animal.name} </li>`
+function creatAnimalRoosterHTML(animal, index) {
+    return /*html*/ `<li>Rooster ${animal.name} </li>`
 }
 
 function creatAnimalHenHTML(animal, index) {
@@ -87,9 +87,9 @@ function allHens() {
     return allhensArray.length;
 }
 
-function allCocks() {
-    let allCocksArray = jsonData.filter((data) => data.type === 'cock');
-    return allCocksArray.length;   
+function allRoosters() {
+    let allRoostersArray = jsonData.filter((data) => data.type === 'rooster');
+    return allRoostersArray.length;   
 }
 
 function addNewEggs(index) {
@@ -99,8 +99,8 @@ function addNewEggs(index) {
     renderAnimals();
     allEggs();
     allHens();
-    allCocks();
+    allRoosters();
     document.querySelector('.all-eggs').innerHTML = allEggs();
     document.querySelector('.all-hens').innerHTML = allHens();
-    document.querySelector('.all-cocks').innerHTML = allCocks();
+    document.querySelector('.all-roosters').innerHTML = allRoosters();
 }
