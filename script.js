@@ -106,10 +106,20 @@ function addNewEggs(index) {
 }
 
 function collectEggs() {
-    let totalElem = document.querySelector('.collected-eggs');
-    let currentTotal = parseInt(totalElem.innerText, 10) || 0;
+    let collectedEggs = document.querySelector('.collected-eggs');
+
+    let allLaidEggs = document.querySelector('.all-eggs');
+
+    let currentTotalCollectedEggs = parseInt(collectedEggs.innerText, 10) || 0;
+    
+    let currentTotalLaidEggs = parseInt(allLaidEggs.innerText, 10) || 0;
+
     let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
-    totalElem.innerHTML = currentTotal + collectedEggsInput
+    
+    allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
+
+    collectedEggs.innerText = currentTotalCollectedEggs + collectedEggsInput;
+    
     document.querySelector('.number-of-eggs').value = "";
 }
 
