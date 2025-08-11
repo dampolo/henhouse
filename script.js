@@ -113,9 +113,10 @@ function collectEggs() {
     let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
     
     collectedEggs.innerText = currentTotalCollectedEggs + collectedEggsInput;
-    reduceEggs(collectedEggsInput)
-    
+
     document.querySelector('.number-of-eggs').value = "";
+    
+    reduceEggs(collectedEggsInput)
 
 }
 
