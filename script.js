@@ -106,5 +106,22 @@ function addNewEggs(index) {
 }
 
 function collectEggs() {
-    
+    let totalElem = document.querySelector('.collected-eggs');
+    let currentTotal = parseInt(totalElem.innerText, 10) || 0;
+    let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
+    totalElem.innerHTML = currentTotal + collectedEggsInput
+    document.querySelector('.number-of-eggs').value = "";
 }
+
+
+
+
+
+// TEST Funktion
+// document.querySelector('.collect-eggs').addEventListener('click', () => {
+//     let totalElem = document.querySelector('.collected-eggs');
+//     let currentTotal = parseInt(totalElem.innerText, 10) || 0;
+//     let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
+//     totalElem.innerHTML = currentTotal + collectedEggsInput
+//     document.querySelector('.number-of-eggs').value = "";
+// })
