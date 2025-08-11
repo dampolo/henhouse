@@ -9,27 +9,41 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="hen-house"></div>
-
-    <div>
+    <main>
       <h1>Henhouse</h1>
       <h2>Overview</h2>
 
-      <div class="overview">
-        <div>
+      <ul class="overview">
+        <li>
           <h3>Cocks</h3>
           <div class="all-roosters">0</div>
-        </div>
-        <div>
+        </li>
+        <li>
           <h3>Hens</h3>
-          <div class="all-hens">0</div>
-        </div>
+          <span class="all-hens">0</span>
+        </li>
 
-        <div>
+        <li>
           <h3>Eggs</h3>
-          <div class="all-eggs">0</div>
-        </div>
-      </div>
+          <span class="all-eggs">0</span>
+        </li>
+		<input id="collected-eggs" type="number">
+        <button>
+          Collect all the eggs
+        </button>
+
+		<li>
+			<h3>
+			</h3>
+			<span></span>
+		</li>
+
+		<li>
+			<h3>Collected eggs</h3>
+			<p class="collected-eggs"></p>
+		</li>
+
+      </ul>
 
       <section class="all-animals">
         <div class="list-of-all-hens">
@@ -71,7 +85,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </main>
     <script src="./data.js"></script>
     <script src="./script.js"></script>
   </body>
