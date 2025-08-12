@@ -38,7 +38,8 @@ function addNewAnimal() {
     if(selectAnimal.value === "hen") {
         jsonData.push({
             name: animalInput.value,
-            eggs: parseInt(eggsInput.value),
+            current_eggs: parseInt(eggsInput.value) || 0,
+            total_eggs: parseInt(eggsInput.value) || 0,
             type: "hen",
         });
     } else {
