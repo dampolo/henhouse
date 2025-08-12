@@ -67,7 +67,8 @@ function creatAnimalRoosterHTML(animal, index) {
 function creatAnimalHenHTML(animal, index) {
   return /*html*/ `
     <li>
-        <p>Hen ${animal.name} laid ${animal.eggs} eggs.</p>
+        <p>Hen ${animal.name} laid ${animal.current_eggs} eggs.</p>
+        <p>Total: ${animal.total_eggs} eggs.</p>
         <div class="input-button">
             <input class="add-new-eggs${index}" name="number" type="number" min="1">
             <button onclick="addNewEggs(${index})">ADD</button>
