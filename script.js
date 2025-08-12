@@ -79,7 +79,7 @@ function creatAnimalHenHTML(animal, index) {
 renderAnimals();
 
 function allEggs() {
-    const sumWithInitial = jsonData.reduce((accumulator, currentItem) => accumulator + currentItem.eggs, 0);
+    const sumWithInitial = jsonData.reduce((accumulator, currentItem) => accumulator + currentItem.current_eggs, 0);
     return sumWithInitial;
 }
 
@@ -95,7 +95,8 @@ function allRoosters() {
 
 function addNewEggs(index) {
     const amountOfEggs = document.querySelector(`.add-new-eggs${index}`);
-    jsonData[index].eggs += parseFloat(amountOfEggs.value);
+    jsonData[index].current_eggs += parseFloat(amountOfEggs.value);
+    jsonData[index].total_eggs += parseFloat(amountOfEggs.value);
     amountOfEggs.value = "";
     renderAnimals();
     allEggs();
@@ -104,6 +105,18 @@ function addNewEggs(index) {
     document.querySelector('.all-eggs').innerHTML = allEggs();
     document.querySelector('.all-hens').innerHTML = allHens();
     document.querySelector('.all-roosters').innerHTML = allRoosters();
+}
+
+
+function collectAllEggs() {
+    document.querySelector('.collected-eggs').innerText = allEggs();
+    document.querySelector('.all-eggs').innerText = 0;
+    currentEggsToZero()
+}
+
+function currentEggsToZero() {
+    jsonData.forEach((animal) => animal.current_eggs = 0)
+    renderAnimals()
 }
 
 function collectEggs() {
