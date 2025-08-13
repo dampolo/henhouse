@@ -76,8 +76,8 @@ function creatAnimalHenHTML(animal, index) {
         <p>Hen ${animal.name} laid ${animal.current_eggs} eggs.</p>
         <p>Total: ${animal.total_eggs} eggs.</p>
         <div class="input-fileds">
-            <input class="add-new-eggs${index}" name="number" type="number" min="1">
-            <button onclick="addNewEggs(${index})">ADD EGGS</button>
+            <input class="collect-some-eggs${index}" oninput="activeReactiveButtonSingleHen(${index})" name="number" type="number" min="1">
+            <button onclick="addNewEggs(${index})" class="collect-eggs${index}" disabled>COLLECT EGGS</button>
             <button onclick="animalDied(${index})">DIED</button>
         </div>
     </li> `;
@@ -85,25 +85,47 @@ function creatAnimalHenHTML(animal, index) {
 
 renderAnimals();
 
+function activeReactiveButtonSingleHen(index) {
+    const collectedEggsInput = parseInt(document.querySelector(`.collect-some-eggs${index}`).value, 10) || 0;
+    const activeReactiveButton = document.querySelector(`.collect-eggs${index}`);
+    
+    
+    if(collectedEggsInput <= jsonData[index].current_eggs && collectedEggsInput !== 0 && collectedEggsInput > 0) {
+        activeReactiveButton.disabled = false;
+        collectEggsDirectlyFromHen(index)
+        collectedEggsInput.value =''
+    } else {
+        activeReactiveButton.disabled = true;
+    }
+}
+
+
+function collectEggsDirectlyFromHen(index) {
+    const collectedEggs = document.querySelector('.collected-eggs');
+    const collectedEggsInput = parseInt(document.querySelector(`.collect-some-eggs${index}`).value, 10) || 0;
+    const currentTotalCollectedEggs = parseInt(collectedEggs.innerText, 10) || 0;
+    collectedEggs.innerText = currentTotalCollectedEggs + collectedEggsInput;
+}
+
+
 function allEggs() {
     const sumWithInitial = jsonData.reduce((accumulator, currentItem) => accumulator + currentItem.current_eggs, 0);
     return sumWithInitial;
 }
 
 function allHens() {
-    let allhensArray = jsonData.filter((data) => data.type === 'hen');
+    const allhensArray = jsonData.filter((data) => data.type === 'hen');
     return allhensArray.length;
 }
 
 function allRoosters() {
-    let allRoostersArray = jsonData.filter((data) => data.type === 'rooster');
+    const allRoostersArray = jsonData.filter((data) => data.type === 'rooster');
     return allRoostersArray.length;   
 }
 
 function addNewEggs(index) {
-    const amountOfEggs = document.querySelector(`.add-new-eggs${index}`);
-    jsonData[index].current_eggs += parseFloat(amountOfEggs.value);
-    jsonData[index].total_eggs += parseFloat(amountOfEggs.value);
+    const amountOfEggs = document.querySelector(`.collect-some-eggs${index}`);
+    jsonData[index].current_eggs -= parseInt(amountOfEggs.value);
     amountOfEggs.value = "";
     renderAnimals();
     allEggs();
@@ -123,8 +145,8 @@ function animalDied(index) {
 
 
 function collectAllEggs() {
-    let collectedEggs = document.querySelector('.collected-eggs').innerText
-    let allLaidEggs = document.querySelector('.all-laid-eggs').innerText
+    const collectedEggs = document.querySelector('.collected-eggs').innerText
+    const allLaidEggs = document.querySelector('.all-laid-eggs').innerText
     document.querySelector('.collected-eggs').innerText = parseInt(allLaidEggs) + parseInt(collectedEggs);
 
     document.querySelector('.all-laid-eggs').innerText = 0;
@@ -138,11 +160,11 @@ function currentEggsToZero() {
 }
 
 function collectEggs() {
-    let collectedEggs = document.querySelector('.collected-eggs');
+    const collectedEggs = document.querySelector('.collected-eggs');
 
-    let currentTotalCollectedEggs = parseInt(collectedEggs.innerText, 10) || 0;
+    const currentTotalCollectedEggs = parseInt(collectedEggs.innerText, 10) || 0;
     
-    let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
+    const collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
 
     document.querySelector('.number-of-eggs').value = "";
     collectedEggs.innerText = currentTotalCollectedEggs + collectedEggsInput;
@@ -151,40 +173,35 @@ function collectEggs() {
 
 
 function activeReactiveButton() {
-    let collectAllEggs = document.querySelector('.collect-eggs');
-    let currendLaidEggs = document.querySelector('.all-laid-eggs').innerText;
-    let collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
-    if (parseInt(currendLaidEggs) < collectedEggsInput) {
-        collectAllEggs.disabled = true;
-    } else {
+    const collectAllEggs = document.querySelector('.collect-eggs');
+    const currendLaidEggs = document.querySelector('.all-laid-eggs').innerText;
+    const collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
+    if (parseInt(currendLaidEggs) > collectedEggsInput  && collectedEggsInput > 0) {
         collectAllEggs.disabled = false;
+    } else {
+        collectAllEggs.disabled = true;
     }
 }
 
 
 function reduceEggs(collectedEggsInput) {
-    let allLaidEggs = document.querySelector('.all-laid-eggs')
-
-    let currentTotalLaidEggs = parseInt(allLaidEggs.innerText, 10) || 0;
-
+    const allLaidEggs = document.querySelector('.all-laid-eggs')
+    const currentTotalLaidEggs = parseInt(allLaidEggs.innerText, 10) || 0;
     allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
-
 }
 
-let index = Math.floor(Math.random() * jsonData.length)
-const laidTime = jsonData[index].laid_time;
 
 function layEggs() {
-    let index = Math.floor(Math.random() * jsonData.length);
+    const index = Math.floor(Math.random() * jsonData.length)
+    const laidTime = jsonData[index].laid_time;
     jsonData[index].current_eggs += 5;
     jsonData[index].total_eggs += 5;
     renderAnimals();
     document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-    let laidTime = jsonData[index].laid_time;    
-    setTimeout(layEggs, laidTime);
+    setTimeout(layEggs, laidTime);        
 }
 
-layEggs(); // start
+//layEggs(); // start
 
 
 
