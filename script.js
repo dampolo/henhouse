@@ -170,9 +170,7 @@ function reduceEggs(collectedEggsInput) {
 }
 
 setInterval(() => {
-    let index = Math.floor(Math.random() * parseInt(jsonData.length))
-    console.log(index);
-    
+    let index = Math.floor(Math.random() * parseInt(jsonData.length))    
     jsonData[index].current_eggs += 5;    
     jsonData[index].total_eggs += 5;
     renderAnimals()
