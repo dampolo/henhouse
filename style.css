@@ -75,7 +75,7 @@ main {
 }
 
 .all-roosters,
-.all-eggs,
+.all-laid-eggs,
 .all-hens,
 .collected-eggs {
     display: flex;
@@ -112,9 +112,10 @@ main {
     flex: 1;
 }
 
-.input-button {
+.input-fileds {
     display: flex;
     flex-direction: row;
+    gap: 1rem
 }
 
 .input-button input {

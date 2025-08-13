@@ -26,16 +26,16 @@
 
         <div>
 			<h3>Eggs</h3>
-			<span class="all-eggs"></span>
+			<span class="all-laid-eggs"></span>
         </div>
 		
-		<input id="collected-eggs-input" class="number-of-eggs" type="number">
+		<input id="collected-eggs-input" oninput="activeReactiveButton()" class="number-of-eggs" type="number" min="1">
 
         <button onclick="collectEggs()" class="collect-eggs">
           Collect the eggs
         </button>
 
-        <button onclick="collectAllEggs()" class="collect-eggs">
+        <button onclick="collectAllEggs()" class="collect-all-eggs">
           Collect all eggs
         </button>
 		<div>
