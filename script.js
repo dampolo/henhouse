@@ -45,7 +45,8 @@ function addNewAnimal() {
     } else {
         jsonData.push({
             name: animalInput.value,
-            eggs: 0,
+            current_eggs: 0,
+            total_eggs: 0,
             type: "rooster",
         });
     }
@@ -62,7 +63,9 @@ function addNewAnimal() {
 }
 
 function creatAnimalRoosterHTML(animal, index) {
-    return /*html*/ `<li>Rooster ${animal.name} </li>`
+    return /*html*/ `<li>Rooster ${animal.name} 
+                    <button onclick="animalDied(${index})">DIED</button>
+                    </li>`
 }
 
 function creatAnimalHenHTML(animal, index) {
@@ -73,7 +76,7 @@ function creatAnimalHenHTML(animal, index) {
         <div class="input-fileds">
             <input class="add-new-eggs${index}" name="number" type="number" min="1">
             <button onclick="addNewEggs(${index})">ADD EGGS</button>
-            <button onclick="hensDied(${index})">DIED</button>
+            <button onclick="animalDied(${index})">DIED</button>
         </div>
     </li> `;
 }
@@ -109,9 +112,11 @@ function addNewEggs(index) {
     document.querySelector('.all-roosters').innerHTML = allRoosters();
 }
 
-function hensDied(index) {
+function animalDied(index) {
     jsonData.splice(index, 1)
     renderAnimals();
+    document.querySelector('.all-hens').innerHTML = allHens();
+    document.querySelector('.all-roosters').innerHTML = allRoosters();
 }
 
 
@@ -163,6 +168,16 @@ function reduceEggs(collectedEggsInput) {
     allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
 
 }
+
+setInterval(() => {
+    let index = Math.floor(Math.random() * parseInt(jsonData.length))
+    console.log(index);
+    
+    jsonData[index].current_eggs += 5;    
+    jsonData[index].total_eggs += 5;
+    renderAnimals()
+    document.querySelector('.all-laid-eggs').innerHTML = allEggs()
+}, 5000);
 
 
 
