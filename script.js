@@ -40,6 +40,7 @@ function addNewAnimal() {
             name: animalInput.value,
             current_eggs: parseInt(eggsInput.value) || 0,
             total_eggs: parseInt(eggsInput.value) || 0,
+            laid_time: (Math.floor(Math.random() * 10) + 1) * 1000,
             type: "hen",
         });
     } else {
@@ -47,6 +48,7 @@ function addNewAnimal() {
             name: animalInput.value,
             current_eggs: 0,
             total_eggs: 0,
+            laid_time: 0,
             type: "rooster",
         });
     }
@@ -169,13 +171,21 @@ function reduceEggs(collectedEggsInput) {
 
 }
 
-setInterval(() => {
-    let index = Math.floor(Math.random() * parseInt(jsonData.length))    
-    jsonData[index].current_eggs += 5;    
+let index = Math.floor(Math.random() * jsonData.length)
+const laidTime = jsonData[index].laid_time;
+
+function layEggs() {
+    let index = Math.floor(Math.random() * jsonData.length);
+    jsonData[index].current_eggs += 5;
     jsonData[index].total_eggs += 5;
-    renderAnimals()
-    document.querySelector('.all-laid-eggs').innerHTML = allEggs()
-}, 5000);
+    renderAnimals();
+    document.querySelector('.all-laid-eggs').innerHTML = allEggs();
+    let laidTime = jsonData[index].laid_time;    
+    setTimeout(layEggs, laidTime);
+}
+
+layEggs(); // start
+
 
 
 
