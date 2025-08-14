@@ -1,11 +1,6 @@
 const selectAnimal = document.getElementById("animals");
 const animalInput = document.querySelector(".name-new-hen");
 const eggsInput = document.querySelector(".eggs-new-hen");
-document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-document.querySelector('.all-hens').innerHTML = allHens();
-document.querySelector('.all-roosters').innerHTML = allRoosters();
-
-
 
 selectAnimal.addEventListener("change", () => {
   if (selectAnimal.value === "rooster") {
@@ -24,7 +19,7 @@ function renderAnimals() {
     allHens.innerHTML = "";
     allRoosters.innerHTML = "";
 
-    jsonData.forEach((animal, index) => {
+    henHouse.allAnimals.forEach((animal, index) => {
         if(animal.type === 'hen'){
             allHens.innerHTML += creatAnimalHenHTML(animal, index);
         } else {
@@ -36,7 +31,7 @@ function renderAnimals() {
 
 function addNewAnimal() {
     if(selectAnimal.value === "hen") {
-        jsonData.push({
+        henHouse.allAnimals.push({
             name: animalInput.value,
             current_eggs: parseInt(eggsInput.value) || 0,
             total_eggs: parseInt(eggsInput.value) || 0,
@@ -44,7 +39,7 @@ function addNewAnimal() {
             type: "hen",
         });
     } else {
-        jsonData.push({
+        allAnimals.push({
             name: animalInput.value,
             current_eggs: 0,
             total_eggs: 0,
@@ -59,9 +54,7 @@ function addNewAnimal() {
     allEggs();
     allHens();
     allRoosters();
-    document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-    document.querySelector('.all-hens').innerHTML = allHens();
-    document.querySelector('.all-roosters').innerHTML = allRoosters();
+    // layEggs()
 }
 
 function creatAnimalRoosterHTML(animal, index) {
@@ -81,8 +74,8 @@ function creatAnimalHenHTML(animal, index) {
             <button onclick="animalDied(${index})">DIED</button>
         </div>
     </li> `;
-}
 
+}
 renderAnimals();
 
 function activeReactiveButtonSingleHen(index) {
@@ -90,7 +83,7 @@ function activeReactiveButtonSingleHen(index) {
     const activeReactiveButton = document.querySelector(`.collect-eggs${index}`);
     
     
-    if(collectedEggsInput <= jsonData[index].current_eggs && collectedEggsInput !== 0 && collectedEggsInput > 0) {
+    if(collectedEggsInput <= allAnimals[index].current_eggs && collectedEggsInput !== 0 && collectedEggsInput > 0) {
         activeReactiveButton.disabled = false;
         collectEggsDirectlyFromHen(index)
         collectedEggsInput.value =''
@@ -109,72 +102,81 @@ function collectEggsDirectlyFromHen(index) {
 
 
 function allEggs() {
-    const sumWithInitial = jsonData.reduce((accumulator, currentItem) => accumulator + currentItem.current_eggs, 0);
-    return sumWithInitial;
+    const allEggsArray = henHouse.allAnimals.reduce((accumulator, currentItem) => accumulator + currentItem.current_eggs, 0);
+    document.querySelector('.all-laid-eggs').innerHTML = allEggsArray;
+    henHouse.overview[1].all_laid_eggs = allEggsArray
+    return allEggsArray;
 }
+allEggs()
 
 function allHens() {
-    const allhensArray = jsonData.filter((data) => data.type === 'hen');
+    const allhensArray = henHouse.allAnimals.filter((data) => data.type === 'hen');
+    document.querySelector('.all-hens').innerHTML = allhensArray.length;
+    henHouse.overview[2].all_hens = allhensArray.length
     return allhensArray.length;
 }
+allHens()
+
 
 function allRoosters() {
-    const allRoostersArray = jsonData.filter((data) => data.type === 'rooster');
+    const allRoostersArray = henHouse.allAnimals.filter((data) => data.type === 'rooster');
+    document.querySelector('.all-roosters').innerHTML = allRoostersArray.length;
+    henHouse.overview[3].all_rosters = allRoostersArray.length
     return allRoostersArray.length;   
 }
 
+allRoosters()
+
 function addNewEggs(index) {
     const amountOfEggs = document.querySelector(`.collect-some-eggs${index}`);
-    jsonData[index].current_eggs -= parseInt(amountOfEggs.value);
+    henHouse.allAnimals[index].current_eggs -= parseInt(amountOfEggs.value);
     amountOfEggs.value = "";
     renderAnimals();
     allEggs();
     allHens();
     allRoosters();
-    document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-    document.querySelector('.all-hens').innerHTML = allHens();
-    document.querySelector('.all-roosters').innerHTML = allRoosters();
 }
 
 function animalDied(index) {
-    jsonData.splice(index, 1)
+    henHouse.overview[0].collected_eggs += henHouse.allAnimals[index].current_eggs;
+    document.querySelector('.collected-eggs').innerText = henHouse.overview[0].collected_eggs;
+    henHouse.allAnimals.splice(index, 1)
     renderAnimals();
-    document.querySelector('.all-hens').innerHTML = allHens();
-    document.querySelector('.all-roosters').innerHTML = allRoosters();
+    allHens();
+    allRoosters();
+    allEggs();
 }
 
 
 function collectAllEggs() {
-    const collectedEggs = document.querySelector('.collected-eggs').innerText
-    const allLaidEggs = document.querySelector('.all-laid-eggs').innerText
-    document.querySelector('.collected-eggs').innerText = parseInt(allLaidEggs) + parseInt(collectedEggs);
-
-    document.querySelector('.all-laid-eggs').innerText = 0;
+    henHouse.overview[0].collected_eggs += henHouse.overview[1].all_laid_eggs;
+    document.querySelector('.collected-eggs').innerText = henHouse.overview[0].collected_eggs;
     currentEggsToZero();
     activeReactiveButton();
 }
 
 function currentEggsToZero() {
-    jsonData.forEach((animal) => animal.current_eggs = 0);
+    henHouse.allAnimals.forEach((animal) => animal.current_eggs = 0);
     renderAnimals();
+    allEggs();
 }
 
 function collectEggs() {
     const collectedEggs = document.querySelector('.collected-eggs');
 
-    const currentTotalCollectedEggs = parseInt(collectedEggs.innerText, 10) || 0;
+    const currentTotalCollectedEggs = henHouse.overview[0].collected_eggs;
     
     const collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
 
     document.querySelector('.number-of-eggs').value = "";
     collectedEggs.innerText = currentTotalCollectedEggs + collectedEggsInput;
-    reduceEggs(collectedEggsInput);
+    reduceCurrentLaidEggs(collectedEggsInput);
 }
 
 
 function activeReactiveButton() {
     const collectAllEggs = document.querySelector('.collect-eggs');
-    const currendLaidEggs = document.querySelector('.all-laid-eggs').innerText;
+    const currendLaidEggs = henHouse.overview[1].all_laid_eggs;
     const collectedEggsInput = parseInt(document.querySelector('.number-of-eggs').value, 10) || 0;
     if (parseInt(currendLaidEggs) > collectedEggsInput  && collectedEggsInput > 0) {
         collectAllEggs.disabled = false;
@@ -184,21 +186,26 @@ function activeReactiveButton() {
 }
 
 
-function reduceEggs(collectedEggsInput) {
+function reduceCurrentLaidEggs(collectedEggsInput) {
     const allLaidEggs = document.querySelector('.all-laid-eggs')
-    const currentTotalLaidEggs = parseInt(allLaidEggs.innerText, 10) || 0;
+    const currentTotalLaidEggs = henHouse.overview[1].all_laid_eggs;
     allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
+    henHouse.overview[0].collected_eggs += collectedEggsInput;
+    henHouse.overview[1].all_laid_eggs -= collectedEggsInput;
 }
 
 
 function layEggs() {
-    const index = Math.floor(Math.random() * jsonData.length)
-    const laidTime = jsonData[index].laid_time;
-    jsonData[index].current_eggs += 5;
-    jsonData[index].total_eggs += 5;
+    const index = Math.floor(Math.random() * henHouse.allAnimals.length)
+    const laidTime = henHouse.allAnimals[index].laid_time;
+    henHouse.allAnimals[index].current_eggs += 5;
+    henHouse.allAnimals[index].total_eggs += 5;
     renderAnimals();
     document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-    setTimeout(layEggs, laidTime);        
+
+    if(henHouse.allAnimals.some((animal) => animal.type === 'hen')) {
+        setTimeout(layEggs, laidTime);        
+    }
 }
 
 //layEggs(); // start
