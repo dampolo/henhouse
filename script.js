@@ -196,19 +196,18 @@ function reduceCurrentLaidEggs(collectedEggsInput) {
 
 
 function layEggs() {
-    const index = Math.floor(Math.random() * henHouse.allAnimals.length)
+    const index = Math.floor(Math.random() * henHouse.allAnimals.length)    
     const laidTime = henHouse.allAnimals[index].laid_time;
-    henHouse.allAnimals[index].current_eggs += 5;
-    henHouse.allAnimals[index].total_eggs += 5;
+    if(henHouse.allAnimals[index].type !== 'rooster') {
+        henHouse.allAnimals[index].current_eggs += 5;
+        henHouse.allAnimals[index].total_eggs += 5;
+    }
     renderAnimals();
     document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-
-    if(henHouse.allAnimals.some((animal) => animal.type === 'hen')) {
-        setTimeout(layEggs, laidTime);        
-    }
+    setTimeout(layEggs, laidTime);       
 }
 
-//layEggs(); // start
+layEggs(); // start
 
 
 
