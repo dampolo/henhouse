@@ -1,6 +1,6 @@
 const selectAnimal = document.getElementById("animals");
 const animalInput = document.querySelector(".name-new-hen");
-const eggsInput = document.querySelector(".eggs-new-hen");
+const timeInput = document.querySelector(".time-new-hen");
 
 selectAnimal.addEventListener("change", () => {
   if (selectAnimal.value === "rooster") {
@@ -15,28 +15,30 @@ selectAnimal.addEventListener("change", () => {
 function renderAnimals() {
     const allHens = document.querySelector(".amount-of-all-hens");
     const allRoosters = document.querySelector(".amount-of-all-roosters");
-
+    
     allHens.innerHTML = "";
     allRoosters.innerHTML = "";
-
+    
     henHouse.allAnimals.forEach((animal, index) => {
         if(animal.type === 'hen'){
             allHens.innerHTML += creatAnimalHenHTML(animal, index);
-            nestlingCheck(animal)
+            layEggs(animal);
         } else {
-            allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index)
+            allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index);
         }
+        getNestlingCount(animal);
     });
 }
+renderAnimals();
 
 
 function addNewAnimal() {
     if(selectAnimal.value === "hen") {
         henHouse.allAnimals.push({
             name: animalInput.value,
-            current_eggs: parseInt(eggsInput.value) || 0,
-            total_eggs: parseInt(eggsInput.value) || 0,
-            laid_time: (Math.floor(Math.random() * 10) + 1) * 1000,
+            current_eggs: 0,
+            total_eggs: 0,
+            laid_time: parseInt(timeInput.value),
             type: "hen",
             nestling: 0,
         });
@@ -51,13 +53,12 @@ function addNewAnimal() {
         });
     }
 
-    eggsInput.value = "";
+    timeInput.value = "";
     animalInput.value = "";
     renderAnimals();
     allEggs();
     allHens();
     allRoosters();
-    layEggs()
 }
 
 function creatAnimalRoosterHTML(animal, index) {
@@ -77,9 +78,7 @@ function creatAnimalHenHTML(animal, index) {
             <button onclick="animalDied(${index})">DIED</button>
         </div>
     </li> `;
-
 }
-renderAnimals();
 
 function activeReactiveButtonSingleHen(index) {
     const collectedEggsInput = parseInt(document.querySelector(`.collect-some-eggs${index}`).value, 10) || 0;
@@ -198,20 +197,17 @@ function reduceCurrentLaidEggs(collectedEggsInput) {
 }
 
 
-function layEggs() {
-    const index = Math.floor(Math.random() * henHouse.allAnimals.length);
-    const laidTime = henHouse.allAnimals[index].laid_time ?? 1000;
-    
-    if(henHouse.allAnimals[index].type !== 'rooster') {
-        henHouse.allAnimals[index].current_eggs += 5;
-        henHouse.allAnimals[index].total_eggs += 5;
-    }
-    renderAnimals();
-    document.querySelector('.all-laid-eggs').innerHTML = allEggs();
-    setTimeout(layEggs, laidTime);       
-}
+function layEggs(animal) {
 
-layEggs(); // start
+    if(animal.layingInterval) return
+
+    animal.layingInterval = setInterval(() => {
+        animal.current_eggs += 5;
+        animal.total_eggs += 5;
+        document.querySelector('.all-laid-eggs').innerHTML = allEggs();
+        renderAnimals()
+    }, animal.laid_time);    
+}
 
 
 
