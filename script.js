@@ -57,7 +57,7 @@ function addNewAnimal() {
     allEggs();
     allHens();
     allRoosters();
-    // layEggs()
+    layEggs()
 }
 
 function creatAnimalRoosterHTML(animal, index) {
@@ -211,7 +211,7 @@ function layEggs() {
     setTimeout(layEggs, laidTime);       
 }
 
-//layEggs(); // start
+layEggs(); // start
 
 
 
