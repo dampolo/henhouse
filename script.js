@@ -22,6 +22,7 @@ function renderAnimals() {
     henHouse.allAnimals.forEach((animal, index) => {
         if(animal.type === 'hen'){
             allHens.innerHTML += creatAnimalHenHTML(animal, index);
+            nestlingCheck(animal)
         } else {
             allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index)
         }
@@ -37,6 +38,7 @@ function addNewAnimal() {
             total_eggs: parseInt(eggsInput.value) || 0,
             laid_time: (Math.floor(Math.random() * 10) + 1) * 1000,
             type: "hen",
+            nestling: 0,
         });
     } else {
         allAnimals.push({
@@ -45,6 +47,7 @@ function addNewAnimal() {
             total_eggs: 0,
             laid_time: 0,
             type: "rooster",
+            nestling: 0,
         });
     }
 
@@ -83,7 +86,7 @@ function activeReactiveButtonSingleHen(index) {
     const activeReactiveButton = document.querySelector(`.collect-eggs${index}`);
     
     
-    if(collectedEggsInput <= allAnimals[index].current_eggs && collectedEggsInput !== 0 && collectedEggsInput > 0) {
+    if(collectedEggsInput <= henHouse.allAnimals[index].current_eggs && collectedEggsInput !== 0 && collectedEggsInput > 0) {
         activeReactiveButton.disabled = false;
         collectEggsDirectlyFromHen(index)
         collectedEggsInput.value =''
@@ -196,8 +199,9 @@ function reduceCurrentLaidEggs(collectedEggsInput) {
 
 
 function layEggs() {
-    const index = Math.floor(Math.random() * henHouse.allAnimals.length)    
-    const laidTime = henHouse.allAnimals[index].laid_time;
+    const index = Math.floor(Math.random() * henHouse.allAnimals.length);
+    const laidTime = henHouse.allAnimals[index].laid_time ?? 1000;
+    
     if(henHouse.allAnimals[index].type !== 'rooster') {
         henHouse.allAnimals[index].current_eggs += 5;
         henHouse.allAnimals[index].total_eggs += 5;
@@ -207,7 +211,7 @@ function layEggs() {
     setTimeout(layEggs, laidTime);       
 }
 
-layEggs(); // start
+//layEggs(); // start
 
 
 
