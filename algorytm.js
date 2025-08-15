@@ -10,14 +10,8 @@ function nestlingCheck(animal) {
     const hasAlreadyNestling = Math.floor(animal.total_eggs / basisEgg)
    
     if (animal.total_eggs >= 30) {
-
-        
-
         if(hasAlreadyNestling !== allNestlings) {
             animal.nestling += 1;
-            return true
         }
-    } else {
-        return false
     }
 }
