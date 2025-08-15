@@ -7,7 +7,7 @@ const henHouse = {
       total_eggs: 55,
       laid_time: 1000,
       type: "hen",
-      nestling: 1,
+      nestling: 0,
     },
     {
       name: "Danuta",
@@ -15,7 +15,7 @@ const henHouse = {
       total_eggs: 51,
       laid_time: 3000,
       type: "hen",
-      nestling: 1,
+      nestling: 0,
     },
     {
       name: "Jadwiga",
