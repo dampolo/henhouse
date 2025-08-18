@@ -15,16 +15,21 @@ selectAnimal.addEventListener("change", () => {
 function renderAnimals() {
     const allHens = document.querySelector(".amount-of-all-hens");
     const allRoosters = document.querySelector(".amount-of-all-roosters");
+    const allNestling = document.querySelector(".amount-of-all-nestlings");
+
     
     allHens.innerHTML = "";
     allRoosters.innerHTML = "";
+    allNestling.innerHTML = "";
     
     henHouse.allAnimals.forEach((animal, index) => {
         if(animal.type === 'hen'){
             allHens.innerHTML += creatAnimalHenHTML(animal, index);
             layEggs(animal);
-        } else {
+        } else if (animal.type === "rooster") {
             allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index);
+        } else {
+            // allNestling.innerHTML += creatAnimalNestlingHTML(animal, index);
         }
         getNestlingCount(animal);
     });
@@ -61,11 +66,23 @@ function addNewAnimal() {
     allRoosters();
 }
 
+function createNestling() {
+     henHouse.allAnimals.push({
+            name: "Nestling",
+            current_eggs: 0,
+            total_eggs: 0,
+            laid_time: "",
+            type: "nestling",
+            nestling: 0,
+        });
+}
+
 function creatAnimalRoosterHTML(animal, index) {
     return /*html*/ `<li>Rooster ${animal.name} 
                     <button onclick="animalDied(${index})">DIED</button>
                     </li>`
 }
+
 
 function creatAnimalHenHTML(animal, index) {
   return /*html*/ `
@@ -78,6 +95,13 @@ function creatAnimalHenHTML(animal, index) {
             <button onclick="animalDied(${index})">DIED</button>
         </div>
     </li> `;
+}
+
+
+function creatAnimalNestlingHTML(animal, index) {
+    return /*html*/ `<li>${animal.name} ${animal.index}
+                    <button onclick="animalDied(${index})">DIED</button>
+                    </li>`
 }
 
 function activeReactiveButtonSingleHen(index) {
@@ -126,8 +150,24 @@ function allRoosters() {
     henHouse.overview[3].all_rosters = allRoostersArray.length
     return allRoostersArray.length;   
 }
-
 allRoosters()
+
+
+function allNestlings() {
+    const allNestling = henHouse.allAnimals.reduce((accumulator, currentItem) => accumulator + currentItem.nestling, 0);
+    document.querySelector('.all-nestlings').innerHTML = allNestling;
+    henHouse.overview[4].all_nestlings = allNestling
+    return allNestling;
+}
+allNestlings()
+
+
+function allRoosters() {
+    const allRoostersArray = henHouse.allAnimals.filter((data) => data.type === 'rooster');
+    document.querySelector('.all-roosters').innerHTML = allRoostersArray.length;
+    henHouse.overview[3].all_rosters = allRoostersArray.length
+    return allRoostersArray.length;   
+}
 
 function addNewEggs(index) {
     const amountOfEggs = document.querySelector(`.collect-some-eggs${index}`);
