@@ -4,10 +4,10 @@ const timeInput = document.querySelector(".time-new-hen");
 
 selectAnimal.addEventListener("change", () => {
   if (selectAnimal.value === "rooster") {
-    eggsInput.disabled = true;
-    eggsInput.value = ""; // optional: clear value
+    timeInput.disabled = true;
+    timeInput.value = ""; // optional: clear value
   } else {
-    eggsInput.disabled = false;
+    timeInput.disabled = false;
   }
 });
 
@@ -16,22 +16,24 @@ function renderAnimals() {
     const allHens = document.querySelector(".amount-of-all-hens");
     const allRoosters = document.querySelector(".amount-of-all-roosters");
     const allNestling = document.querySelector(".amount-of-all-nestlings");
-
     
     allHens.innerHTML = "";
     allRoosters.innerHTML = "";
     allNestling.innerHTML = "";
     
     henHouse.allAnimals.forEach((animal, index) => {
+
         if(animal.type === 'hen'){
             allHens.innerHTML += creatAnimalHenHTML(animal, index);
             layEggs(animal);
+            allNestlings();
+            getNestlingCount(animal);
         } else if (animal.type === "rooster") {
             allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index);
         } else {
-            // allNestling.innerHTML += creatAnimalNestlingHTML(animal, index);
+            debugger
+            allNestling.innerHTML += creatAnimalNestlingHTML(animal, index);
         }
-        getNestlingCount(animal);
     });
 }
 renderAnimals();
@@ -40,7 +42,7 @@ renderAnimals();
 function addNewAnimal() {
     if(selectAnimal.value === "hen") {
         henHouse.allAnimals.push({
-            name: animalInput.value,
+            name: "",
             current_eggs: 0,
             total_eggs: 0,
             laid_time: parseInt(timeInput.value),
@@ -66,7 +68,7 @@ function addNewAnimal() {
     allRoosters();
 }
 
-function createNestling() {
+function createNestlingObject() {
      henHouse.allAnimals.push({
             name: "Nestling",
             current_eggs: 0,
@@ -99,9 +101,7 @@ function creatAnimalHenHTML(animal, index) {
 
 
 function creatAnimalNestlingHTML(animal, index) {
-    return /*html*/ `<li>${animal.name} ${animal.index}
-                    <button onclick="animalDied(${index})">DIED</button>
-                    </li>`
+    return /*html*/ `<li>${animal.name} ${index}</li>`
 }
 
 function activeReactiveButtonSingleHen(index) {

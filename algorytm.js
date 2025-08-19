@@ -3,12 +3,15 @@
 
 function getNestlingCount(animal) {
     const basisEgg = 30
-    
+    const getNestingSingleHen = animal.nestling
     if (isTypeHen() && isTypeRooster()) {
         animal.nestling = Math.floor(animal.total_eggs / basisEgg);
-        allNestlings();
-        return animal.nestling;
     }
+    
+    if (animal.nestling > getNestingSingleHen){ 
+        createNestlingObject();
+    }
+    return animal.nestling;
 }
 
 
