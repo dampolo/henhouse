@@ -31,7 +31,6 @@ function renderAnimals() {
         } else if (animal.type === "rooster") {
             allRoosters.innerHTML += creatAnimalRoosterHTML(animal, index);
         } else {
-            debugger
             allNestling.innerHTML += creatAnimalNestlingHTML(animal, index);
         }
     });
