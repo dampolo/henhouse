@@ -33,13 +33,6 @@ function isTypeHen() {
   return henHouse.allAnimals.some((ishen) => ishen.type === "hen");
 }
 
-function removeNestling() {
-  const firstHen = henHouse.allAnimals.findIndex(
-    (nestling) => nestling.type === "nestling"
-  );
-  henHouse.allAnimals.splice(firstHen, 1);
-}
-
 function createNestlingObject() {
   // Create nestling and push to array
   const nestling = {
