@@ -10,7 +10,12 @@
   </head>
   <body>
     <main>
-      <h1>Henhouse</h1>
+      <header>
+
+        <h1>Henhouse</h1>
+        <button class="break" onclick="breakHenHouse()">Break</button>
+      
+      </header>
       <h2>Overview</h2>
 
       <section class="overview">
@@ -30,11 +35,11 @@
         </div>
 
         <div>
-			<h3>Eggs</h3>
-			<span class="all-laid-eggs"></span>
+          <h3>Eggs</h3>
+          <span class="all-laid-eggs"></span>
         </div>
 		
-		<input id="collected-eggs-input" oninput="activeReactiveButton()" class="number-of-eggs" type="number" min="1">
+		    <input id="collected-eggs-input" oninput="activeReactiveButton()" class="number-of-eggs" type="number" min="1">
 
         <button onclick="collectEggs()" class="collect-eggs">
           Collect the eggs
@@ -43,6 +48,7 @@
         <button onclick="collectAllEggs()" class="collect-all-eggs">
           Collect all eggs
         </button>
+
 		<div>
 			<h3>Collected eggs</h3>
 			<span class="collected-eggs">0</span>

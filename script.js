@@ -67,17 +67,6 @@ function addNewAnimal() {
     allRoosters();
 }
 
-function createNestlingObject() {
-     henHouse.allAnimals.push({
-            name: "Nestling",
-            current_eggs: 0,
-            total_eggs: 0,
-            laid_time: "",
-            type: "nestling",
-            nestling: 0,
-        });
-}
-
 function creatAnimalRoosterHTML(animal, index) {
     return /*html*/ `<li>Rooster ${animal.name} 
                     <button onclick="animalDied(${index})">DIED</button>
