@@ -35,9 +35,9 @@ function isTypeHen() {
 
 
 function createNestlingObject() {
-    const allHens = document.querySelector(".amount-of-all-hens");
-    const allRoosters = document.querySelector(".amount-of-all-roosters");
-    const allNestlings = document.querySelector(".amount-of-all-nestlings");
+    const allHensList = document.querySelector(".amount-of-all-hens");
+    const allRoostersList = document.querySelector(".amount-of-all-roosters");
+    const allNestlingsList = document.querySelector(".amount-of-all-nestlings");
     
     // Derive number from current length of allAnimals array
     const nestlingNumber = henHouse.overview[4].all_nestlings + 1;
@@ -52,9 +52,9 @@ function createNestlingObject() {
     };
     henHouse.allAnimals.push(nestling);
 
-    // Create nestling element and keep reference
-    const nestlingElement = allNestlings.appendChild(createAnimalNestlingElement(nestling, henHouse.allAnimals.length - 1));
-    allNestlings.appendChild(nestlingElement);
+      // Create nestling element and keep reference
+    const nestlingElement = createAnimalNestlingElement(nestling, henHouse.allAnimals.length - 1);
+    allNestlingsList.appendChild(nestlingElement);
 
     // After 20 seconds, turn it into a hen or rooster
     setTimeout(async () => {
@@ -83,13 +83,18 @@ function createNestlingObject() {
         nestlingElement.remove();
 
         if (nestling.type === "hen") {
-            allHens.appendChild(createAnimalHenElement(nestling));
+            allHensList.appendChild(createAnimalHenElement(nestling));
             layEggs(nestling);
         } else  {
-            allRoosters.appendChild(createAnimalRoosterElement(nestling));
+            allRoostersList.appendChild(createAnimalRoosterElement(nestling));
         } 
+
+        allHens();
+        allRoosters();
+        
         } catch (err) {
         console.error("Error updating nestling:", err);
         }
-    }, 5000); // 20 seconds
+    }, 20000); // 20 seconds
+
 }
