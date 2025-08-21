@@ -1,5 +1,3 @@
-
-
 function getNestlingCount(animal) {
   const basisEgg = 30;
   const getNestingSingleHen = animal.nestling;
@@ -8,10 +6,11 @@ function getNestlingCount(animal) {
   }
 
   if (animal.nestling > getNestingSingleHen) {
-    createNestlingObject();
+    // createNestlingObject();
   }
   return animal.nestling;
 }
+
 
 /**
  * Checks if there is at least one rooster in the henHouse.
@@ -23,6 +22,7 @@ function isTypeRooster(params) {
   return henHouse.allAnimals.some((isrooster) => isrooster.type === "rooster");
 }
 
+
 /**
  * Checks if there is at least one hen in the henHouse.
  *
@@ -32,6 +32,7 @@ function isTypeRooster(params) {
 function isTypeHen() {
   return henHouse.allAnimals.some((ishen) => ishen.type === "hen");
 }
+
 
 function createNestlingObject() {
   // Create nestling and push to array
