@@ -6,7 +6,7 @@ function getNestlingCount(animal) {
   }
 
   if (animal.nestling > getNestingSingleHen) {
-    // createNestlingObject();
+    createNestlingObject();
   }
   return animal.nestling;
 }
@@ -35,44 +35,61 @@ function isTypeHen() {
 
 
 function createNestlingObject() {
-  // Create nestling and push to array
-  const nestling = {
-    name: "Nestling",
-    current_eggs: 0,
-    total_eggs: 0,
-    laid_time: 0,
-    type: "nestling",
-    nestling: 0,
-  };
+    const allHens = document.querySelector(".amount-of-all-hens");
+    const allRoosters = document.querySelector(".amount-of-all-roosters");
+    const allNestlings = document.querySelector(".amount-of-all-nestlings");
+    
+    // Derive number from current length of allAnimals array
+    const nestlingNumber = henHouse.overview[4].all_nestlings + 1;
+    // Create nestling and push to array
+    const nestling = {
+        name:  `Nestling #${nestlingNumber}`,
+        current_eggs: 0,
+        total_eggs: 0,
+        laid_time: 0,
+        type: "nestling",
+        nestling: 0,
+    };
+    henHouse.allAnimals.push(nestling);
 
-  henHouse.allAnimals.push(nestling);
+    // Create nestling element and keep reference
+    const nestlingElement = allNestlings.appendChild(createAnimalNestlingElement(nestling, henHouse.allAnimals.length - 1));
+    allNestlings.appendChild(nestlingElement);
 
-  // After 20 seconds, turn it into a hen or rooster
-  setTimeout(async () => {
-    try {
-      const res = await fetch(API_URL);
+    // After 20 seconds, turn it into a hen or rooster
+    setTimeout(async () => {
+        try {
+        const res = await fetch(API_URL);
 
-      if (!res.ok) {
-        console.error("Could not fetch animal:", res.status);
-        return;
-      }
+        if (!res.ok) {
+            console.error("Could not fetch animal:", res.status);
+            return;
+        }
 
-      const henData = await res.json();
-      const name = henData.results[0].name.first;
-      const animalType =
-        henData.results[0].gender === "female" ? "hen" : "rooster";
+        const henData = await res.json();
+        const name = henData.results[0].name.first;
+        const animalType =
+            henData.results[0].gender === "female" ? "hen" : "rooster";
 
-      // random time between 5s and 20s (in ms)
-      const randomLaidTime = Math.floor(Math.random() * (20000 - 5000) + 5000);
+        // random time between 5s and 20s (in ms)
+        const randomLaidTime = Math.floor(Math.random() * (20000 - 5000) + 5000);
 
-      // Update the existing nestling object
-      nestling.name = name;
-      nestling.type = animalType;
-      nestling.laid_time = randomLaidTime;
-      allHens();
-      allRoosters();
-    } catch (err) {
-      console.error("Error updating nestling:", err);
-    }
-  }, 20000); // 20 seconds
+        // Update the existing nestling object
+        nestling.name = name;
+        nestling.type = animalType;
+        nestling.laid_time = randomLaidTime;
+
+            // Remove nestling element from DOM
+        nestlingElement.remove();
+
+        if (nestling.type === "hen") {
+            allHens.appendChild(createAnimalHenElement(nestling));
+            layEggs(nestling);
+        } else  {
+            allRoosters.appendChild(createAnimalRoosterElement(nestling));
+        } 
+        } catch (err) {
+        console.error("Error updating nestling:", err);
+        }
+    }, 5000); // 20 seconds
 }

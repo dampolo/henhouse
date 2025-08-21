@@ -24,10 +24,8 @@ function renderAnimals() {
     if (animal.type === "hen") {
       allHens.appendChild(createAnimalHenElement(animal));
       layEggs(animal);
-    } else if (animal.type === "rooster") {
-      allRoosters.appendChild(createAnimalRoosterElement(animal));
     } else {
-      allNestling.appendChild(createAnimalNestlingElement(animal));
+      allRoosters.appendChild(createAnimalRoosterElement(animal));
     }
   });
 }
