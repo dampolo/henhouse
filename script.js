@@ -1,6 +1,13 @@
 const selectAnimal = document.getElementById("animals");
 const animalInput = document.querySelector(".name-new-hen");
 const timeInput = document.querySelector(".time-new-hen");
+let isBreak = true;
+
+function breakHenHouse() {
+  isBreak = !isBreak
+   document.querySelector(".break").classList.toggle("is-break")
+}
+
 
 selectAnimal.addEventListener("change", () => {
   if (selectAnimal.value === "rooster") {
@@ -12,20 +19,12 @@ selectAnimal.addEventListener("change", () => {
 });
 
 function renderAnimals() {
-  const allHens = document.querySelector(".amount-of-all-hens");
-  const allRoosters = document.querySelector(".amount-of-all-roosters");
-  const allNestling = document.querySelector(".amount-of-all-nestlings");
-
-  allHens.innerHTML = "";
-  allRoosters.innerHTML = "";
-  allNestling.innerHTML = "";
-
   henHouse.allAnimals.forEach((animal) => {
     if (animal.type === "hen") {
-      allHens.appendChild(createAnimalHenElement(animal));
+      createAnimalHenElement(animal);
       layEggs(animal);
     } else {
-      allRoosters.appendChild(createAnimalRoosterElement(animal));
+      createAnimalRoosterElement(animal)
     }
   });
 }

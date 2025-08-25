@@ -6,40 +6,45 @@
     <title>Kurnik</title>
     <link rel="shortcut icon" href="./img/1_w.png" type="image/x-icon" />
 
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
+    <div class="break"></div>
     <main>
       <header>
-
         <h1>Henhouse</h1>
-        <button class="break" onclick="breakHenHouse()">Break</button>
-      
+        <button class="break-btn" onclick="breakHenHouse()" title="Stop production of nestling">Break</button>
       </header>
       <h2>Overview</h2>
 
       <section class="overview">
         <div>
-			<h3>Nestlings</h3>
-			<span class="all-nestlings">0</span>
+          <h3>Nestlings</h3>
+          <span class="all-nestlings">0</span>
         </div>
 
         <div>
-			<h3>Roosters</h3>
-			<span class="all-roosters">0</span>
+          <h3>Roosters</h3>
+          <span class="all-roosters">0</span>
         </div>
 
         <div>
-			<h3>Hens</h3>
-			<span class="all-hens">0</span>
+          <h3>Hens</h3>
+          <span class="all-hens">0</span>
         </div>
 
         <div>
           <h3>Eggs</h3>
           <span class="all-laid-eggs"></span>
         </div>
-		
-		    <input id="collected-eggs-input" oninput="activeReactiveButton()" class="number-of-eggs" type="number" min="1">
+
+        <input
+          id="collected-eggs-input"
+          oninput="activeReactiveButton()"
+          class="number-of-eggs"
+          type="number"
+          min="1"
+        />
 
         <button onclick="collectEggs()" class="collect-eggs">
           Collect the eggs
@@ -49,32 +54,57 @@
           Collect all eggs
         </button>
 
-		<div>
-			<h3>Collected eggs</h3>
-			<span class="collected-eggs">0</span>
-		</div>
-
+        <div>
+          <h3>Collected eggs</h3>
+          <span class="collected-eggs">0</span>
+        </div>
       </section>
 
-      <section class="all-animals">
-        
-        
-        <div class="list-of-all-hens">
-          <h3>List of all Hens:</h3>
-          <ul class="amount-of-all-hens"></ul>
-        </div>
-        
-        <div class="list-of-all-roosters">
-          <h3>List of all Roosters:</h3>
-          <ul class="amount-of-all-roosters"></ul>
-        </div>
+        <section class="all-animals">
 
-        <div class="list-of-all-nestlings">
-          <h3>List of all Nestlings:</h3>
-          <ul class="amount-of-all-nestlings"></ul>
-        </div>
+            <div class="list-of-all-hens">
+            <h3>List of all Hens:</h3>
 
-      </section>
+                <!-- Template hen -->
+                <template class="list-hen-template">
+                <li class="animate">
+                    <p class="hen-status"></p>
+                    <p class="hen-total"></p>
+                    <div class="input-fileds">
+                    <input
+                        class="collect-some-eggs"
+                        name="number"
+                        type="number"
+                        min="1"
+                    />
+                    <button class="collect-eggs" disabled>COLLECT EGGS</button>
+                    <button class="died">DIED</button>
+                    </div>
+                </li>
+                </template>
+
+            <ul class="amount-of-all-hens"></ul>
+            </div>
+
+            <div class="list-of-all-roosters">
+                <h3>List of all Roosters:</h3>
+
+                <!-- Template Roosters -->
+                <template class="list-rooster-template">
+                    <li class="animal">
+                        <p class="rooster-name"></p>
+                        <button class="died">DIED</button>
+                    </li>
+                </template>
+
+                <ul class="amount-of-all-roosters"></ul>
+            </div>
+
+            <div class="list-of-all-nestlings">
+            <h3>List of all Nestlings:</h3>
+            <ul class="amount-of-all-nestlings"></ul>
+            </div>
+        </section>
       <div class="add-new-hen-container">
         <h3>Add new tier:</h3>
         <div class="new-hen-input-container">

@@ -1,76 +1,43 @@
 function createAnimalHenElement(animal) {
-  // Create <li>
-  const li = document.createElement("li");
-  li.classList.add("animal");
+    const henTemplate = document.querySelector(".list-hen-template");
+    const allHens = document.querySelector(".amount-of-all-hens");
+    const clone = henTemplate.content.cloneNode(true);
+    const li = clone.querySelector("li");
+    const input = clone.querySelector(".collect-some-eggs");
+    const collectBtn = clone.querySelector(".collect-eggs");
 
-  // store a reference so we can update later
-  animal.element = li;
+    // store DOM element reference for later updates
+    animal.element = li;
 
-  // Paragraph 1
-  const p1 = document.createElement("p");
-  p1.textContent = `Hen ${animal.name} laid ${animal.current_eggs} eggs.`;
-  li.appendChild(p1);
+    clone.querySelector(".hen-status").textContent = `Hen ${animal.name} laid ${animal.current_eggs} eggs.`;
+    clone.querySelector(".hen-total").textContent = `Total: ${animal.current_eggs}`;
+        
+    // Wire button to collection logic
+    collectBtn.addEventListener("click", () => collectEggsDirectlyFromHen(li, animal, input, collectBtn));
 
-  // Paragraph 2
-  const p2 = document.createElement("p");
-  p2.textContent = `Total: ${animal.total_eggs} eggs.`;
-  li.appendChild(p2);
+    
+    // validate input and enable/disable button
+    input.addEventListener("input", () => {
+        const value = Number(input.value);  // Number takes only one argument
+        collectBtn.disabled = !Number.isInteger(value) || value <= 0 || value > animal.current_eggs;});
 
-  // Div.input-fields
-  const div = document.createElement("div");
-  div.className = "input-fields";
-
-  // Input
-  const input = document.createElement("input");
-  input.name = "number";
-  input.type = "number";
-  input.min = "1";
-  div.appendChild(input);
-
-  // Collect button
-  const collectBtn = document.createElement("button");
-  collectBtn.disabled = true;
-  collectBtn.textContent = "COLLECT EGGS";
-  div.appendChild(collectBtn);
-
-  // Wire input to enable/disable button
-  input.addEventListener("input", () => {
-    const value = Number(input.value, 10);
-    collectBtn.disabled = !Number.isInteger(value) || value <= 0 || value > animal.current_eggs;  
-  });
-
-  // Wire button to collection logic
-  collectBtn.addEventListener("click", () => collectEggsDirectlyFromHen(li, animal, input, collectBtn));
-
-  // Died button
-  const diedBtn = document.createElement("button");
-  diedBtn.textContent = "DIED";
-  diedBtn.addEventListener("click", () => animalDied(li, animal));
-  div.appendChild(diedBtn);
-
-  // Append div to li
-  li.appendChild(div);
-
-  return li;
+    clone.querySelector(".died").addEventListener("click", () => {animalDied(li, animal)});
+    
+    allHens.appendChild(clone);
+    
+    return li
 }
 
 
 function createAnimalRoosterElement(animal) {
-  // <li>
-  const li = document.createElement("li");
-  li.className = 'animal';
-
-  li.textContent = `Rooster ${animal.name} `;
-
-  // Died button
-  const diedBtn = document.createElement("button");
-  diedBtn.textContent = "DIED";
-  diedBtn.addEventListener("click", () => animalDied(li, animal));
-
-  // Append button to li
-  li.appendChild(diedBtn);
-
-  return li;
+    const roosterTemplate = document.querySelector(".list-rooster-template")
+    const allRoosters = document.querySelector(".amount-of-all-roosters");
+    const clone = roosterTemplate.content.cloneNode(true);
+    const li = clone.querySelector("li");
+    clone.querySelector(".rooster-name").textContent = `Rooster ${animal.name} `;
+    clone.querySelector(".died").addEventListener("click", () => {animalDied(li, animal)});
+    allRoosters.appendChild(clone);
+    return li;
 }
 
 function createAnimalNestlingElement(animal) {

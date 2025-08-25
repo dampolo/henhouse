@@ -5,7 +5,7 @@ function getNestlingCount(animal) {
     animal.nestling = Math.floor(animal.total_eggs / basisEgg);
   }
 
-  if (animal.nestling > getNestingSingleHen) {
+  if (animal.nestling > getNestingSingleHen && isBreak) {
     createNestlingObject();
   }
   return animal.nestling;
