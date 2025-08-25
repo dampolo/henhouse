@@ -76,8 +76,7 @@ main {
     width: 3.125rem;
 }
 
-select,
-input {
+select {
     min-height: 2.1875rem;
     padding-inline: .3125rem;
     box-sizing: border-box;
@@ -86,6 +85,30 @@ input {
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    color: rgb(60, 66, 87);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 4px 8px;
+    min-height: 28px;
+    vertical-align: middle;
+    transition: background-color .24s,box-shadow .24s;
+    transition-property: background-color, box-shadow;
+    transition-duration: 0.24s, 0.24s;
+    transition-timing-function: ease, ease;
+    transition-delay: 0s, 0s;
+    &:focus-visible{
+        box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 0px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
+    }
+                
 }
 
 .break-btn {
@@ -111,6 +134,7 @@ input {
     border: none;
 }
 
+select,
 button {
     display: inline-block;
     outline: none;
@@ -120,12 +144,13 @@ button {
     font-weight: 600;
     border-radius: 8px;
     padding: 13px 23px;
-    border: 1px solid #222222;
+    border: 2px solid rgb(58 151 212 / 36%);
     transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
     background: #fff;
     color: #222222;
     &:hover {
-        border-color: #000000;
+        box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 0px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
+
         background: #f7f7f7;
     }   
 }
@@ -136,10 +161,7 @@ button[disabled]{
   background-color: #cccccc;
   color: #666666;
   cursor: inherit;
-}
-
-input:focus {
-    border: 3px solid #555;
+  box-shadow: none;
 }
 
 form {
