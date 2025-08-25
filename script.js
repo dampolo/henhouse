@@ -192,15 +192,13 @@ function animalDied(li, animal) {
 
 function collectAllEggs() {
   henHouse.statistics[0].collected_eggs += henHouse.statistics[1].all_laid_eggs;
-  document.querySelector(".collected-eggs").innerText =
-    henHouse.statistics[0].collected_eggs;
+  document.querySelector(".collected-eggs").innerText = henHouse.statistics[0].collected_eggs;
   currentEggsToZero();
   activeReactiveButton();
 }
 
 function currentEggsToZero() {
   henHouse.allAnimals.forEach((animal) => (animal.current_eggs = 0));
-  renderAnimals();
   allEggs();
 }
 
