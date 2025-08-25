@@ -40,7 +40,7 @@ function createNestlingObject() {
     const allNestlingsList = document.querySelector(".amount-of-all-nestlings");
     
     // Derive number from current length of allAnimals array
-    const nestlingNumber = henHouse.overview[4].all_nestlings + 1;
+    const nestlingNumber = henHouse.statistics[4].all_nestlings + 1;
     // Create nestling and push to array
     const nestling = {
         name:  `Nestling #${nestlingNumber}`,
