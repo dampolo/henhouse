@@ -39,7 +39,7 @@ function addNewAnimal() {
       name: animalInput.value,
       current_eggs: 0,
       total_eggs: 0,
-      laid_time: parseInt(timeInput.value),
+      laid_time: parseInt(timeInput.value * 1000),
       type: "hen",
       nestling: 0,
     };
