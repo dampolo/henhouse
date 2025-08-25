@@ -27,6 +27,8 @@ main {
     gap: 8px;
 }
 
+.died-hens,
+.died-roosters,
 .all-nestlings,
 .all-roosters,
 .all-laid-eggs,

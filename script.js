@@ -86,12 +86,12 @@ function collectEggsDirectlyFromHen(li, animal, input, collectBtn) {
 
   // Update state
   animal.current_eggs -= value;
-  henHouse.overview[0].collected_eggs += value;
+  henHouse.statistics[0].collected_eggs += value;
 
   // Update global collected eggs display
   const collectedEggsEl = document.querySelector(".collected-eggs");
   if (collectedEggsEl) {
-    collectedEggsEl.innerText = henHouse.overview[0].collected_eggs;
+    collectedEggsEl.innerText = henHouse.statistics[0].collected_eggs;
   }
 
   // Update DOM just for this animal
@@ -113,7 +113,7 @@ function allEggs() {
     0
   );
   document.querySelector(".all-laid-eggs").innerHTML = allEggsArray;
-  henHouse.overview[1].all_laid_eggs = allEggsArray;
+  henHouse.statistics[1].all_laid_eggs = allEggsArray;
   return allEggsArray;
 }
 allEggs();
@@ -125,7 +125,7 @@ function allHens() {
     (data) => data.type === "hen"
   );
   document.querySelector(".all-hens").innerHTML = allhensArray.length;
-  henHouse.overview[2].all_hens = allhensArray.length;
+  henHouse.statistics[2].all_hens = allhensArray.length;
   return allhensArray.length;
 }
 allHens();
@@ -135,7 +135,7 @@ function allRoosters() {
     (data) => data.type === "rooster"
   );
   document.querySelector(".all-roosters").innerHTML = allRoostersArray.length;
-  henHouse.overview[3].all_rosters = allRoostersArray.length;
+  henHouse.statistics[3].all_rosters = allRoostersArray.length;
   return allRoostersArray.length;
 }
 allRoosters();
@@ -146,7 +146,7 @@ function allNestlings() {
     0
   );
   document.querySelector(".all-nestlings").innerHTML = allNestling;
-  henHouse.overview[4].all_nestlings = allNestling;
+  henHouse.statistics[4].all_nestlings = allNestling;
   return allNestling;
 }
 
@@ -155,7 +155,7 @@ function allRoosters() {
     (data) => data.type === "rooster"
   );
   document.querySelector(".all-roosters").innerHTML = allRoostersArray.length;
-  henHouse.overview[3].all_rosters = allRoostersArray.length;
+  henHouse.statistics[3].all_rosters = allRoostersArray.length;
   return allRoostersArray.length;
 }
 
@@ -175,8 +175,8 @@ function addNewEggs(index) {
 }
 
 function animalDied(li, animal) {
-  henHouse.overview[0].collected_eggs += animal.current_eggs;
-  document.querySelector(".collected-eggs").innerText = henHouse.overview[0].collected_eggs;
+  henHouse.statistics[0].collected_eggs += animal.current_eggs;
+  document.querySelector(".collected-eggs").innerText = henHouse.statistics[0].collected_eggs;
   // Remove from array (find by object reference instead of index)
   henHouse.allAnimals = henHouse.allAnimals.filter(a => a !== animal);
 
@@ -189,9 +189,9 @@ function animalDied(li, animal) {
 }
 
 function collectAllEggs() {
-  henHouse.overview[0].collected_eggs += henHouse.overview[1].all_laid_eggs;
+  henHouse.statistics[0].collected_eggs += henHouse.statistics[1].all_laid_eggs;
   document.querySelector(".collected-eggs").innerText =
-    henHouse.overview[0].collected_eggs;
+    henHouse.statistics[0].collected_eggs;
   currentEggsToZero();
   activeReactiveButton();
 }
@@ -205,7 +205,7 @@ function currentEggsToZero() {
 function collectEggs() {
   const collectedEggs = document.querySelector(".collected-eggs");
 
-  const currentTotalCollectedEggs = henHouse.overview[0].collected_eggs;
+  const currentTotalCollectedEggs = henHouse.statistics[0].collected_eggs;
 
   const collectedEggsInput =
     parseInt(document.querySelector(".number-of-eggs").value, 10) || 0;
@@ -217,7 +217,7 @@ function collectEggs() {
 
 function activeReactiveButton() {
   const collectAllEggs = document.querySelector(".collect-eggs");
-  const currendLaidEggs = henHouse.overview[1].all_laid_eggs;
+  const currendLaidEggs = henHouse.statistics[1].all_laid_eggs;
   const collectedEggsInput =
     parseInt(document.querySelector(".number-of-eggs").value, 10) || 0;
   if (
@@ -232,10 +232,10 @@ function activeReactiveButton() {
 
 function reduceCurrentLaidEggs(collectedEggsInput) {
   const allLaidEggs = document.querySelector(".all-laid-eggs");
-  const currentTotalLaidEggs = henHouse.overview[1].all_laid_eggs;
+  const currentTotalLaidEggs = henHouse.statistics[1].all_laid_eggs;
   allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
-  henHouse.overview[0].collected_eggs += collectedEggsInput;
-  henHouse.overview[1].all_laid_eggs -= collectedEggsInput;
+  henHouse.statistics[0].collected_eggs += collectedEggsInput;
+  henHouse.statistics[1].all_laid_eggs -= collectedEggsInput;
 }
 
 function layEggs(animal) {
