@@ -62,8 +62,8 @@ function addNewAnimal() {
 
   if (newAnimal.type === "hen") {
     allHensList.appendChild(
-      createAnimalHenElement(newAnimal, henHouse.allAnimals.length - 1)
-    );
+      createAnimalHenElement(newAnimal, henHouse.allAnimals.length - 1));
+      layEggs(newAnimal)
   } else if (newAnimal.type === "rooster") {
     allRoostersList.appendChild(
       createAnimalRoosterElement(newAnimal, henHouse.allAnimals.length - 1)
@@ -178,8 +178,10 @@ function animalDied(li, animal) {
   henHouse.statistics[0].collected_eggs += animal.current_eggs;
   document.querySelector(".collected-eggs").innerText = henHouse.statistics[0].collected_eggs;
   // Remove from array (find by object reference instead of index)
+  console.log(animal);
+  
+  // if(animal.)
   henHouse.allAnimals = henHouse.allAnimals.filter(a => a !== animal);
-
   // Remove DOM element directly
   li.remove();
 
