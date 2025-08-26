@@ -1,10 +1,10 @@
 const selectAnimal = document.getElementById("animals");
 const animalInput = document.querySelector(".name-new-hen");
 const timeInput = document.querySelector(".time-new-hen");
-let isBreak = true;
+let isBreak = false;
 
 function breakHenHouse() {
-  isBreak = !isBreak
+  isBreak = !isBreak  
    document.querySelector(".break").classList.toggle("is-break")
 }
 
@@ -247,28 +247,33 @@ function reduceCurrentLaidEggs(collectedEggsInput) {
 }
 
 function layEggs(animal) {
-  if (animal.layingInterval) return;
 
-  animal.layingInterval = setInterval(() => {
-    animal.current_eggs += 5;
-    animal.total_eggs += 5;
+    if (animal.layingInterval) return;
 
-        // Update this hen’s DOM only
-    if (animal.element) {
-      const paragraphs = animal.element.querySelectorAll("p");
-      if (paragraphs[0]) {
-        paragraphs[0].textContent = `Hen ${animal.name} laid ${animal.current_eggs} eggs.`;
-      }
-      if (paragraphs[1]) {
-        paragraphs[1].textContent = `Total: ${animal.total_eggs} eggs.`;
-      }
-    }
+        animal.layingInterval = setInterval(() => {
 
-    document.querySelector(".all-laid-eggs").innerHTML = allEggs();
-    getNestlingCount(animal);
-    allNestlings();
+        if(!isBreak) {
 
-  }, animal.laid_time);
+            animal.current_eggs += 5;
+            animal.total_eggs += 5;
+
+            // Update this hen’s DOM only
+            if (animal.element) {
+                const paragraphs = animal.element.querySelectorAll("p");
+                if (paragraphs[0]) {
+                paragraphs[0].textContent = `Hen ${animal.name} laid ${animal.current_eggs} eggs.`;
+                }
+                if (paragraphs[1]) {
+                    paragraphs[1].textContent = `Total: ${animal.total_eggs} eggs.`;
+                }
+            }
+            
+            document.querySelector(".all-laid-eggs").innerHTML = allEggs();
+            getNestlingCount(animal);
+            allNestlings();
+        }
+
+    }, animal.laid_time);
 }
 
 // TEST Funktion
