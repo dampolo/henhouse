@@ -159,6 +159,16 @@ function allRoosters() {
   return allRoostersArray.length;
 }
 
+function getAllDiedAnimals(animal) {
+  if(animal.type === "hen") {
+    henHouse.statistics[5].all_died_hens += 1;
+    document.querySelector(".died-hens").innerText = henHouse.statistics[5].all_died_hens;
+  } else {
+    henHouse.statistics[6].all_died_roosters += 1;
+    document.querySelector(".died-roosters").innerText = henHouse.statistics[6].all_died_roosters;
+  }
+}
+
 function addNewEggs(index) {
   const amountOfEggs = document.querySelector(`.collect-some-eggs${index}`);
   henHouse.allAnimals[index].current_eggs -= parseInt(amountOfEggs.value);
@@ -177,12 +187,10 @@ function addNewEggs(index) {
 function animalDied(li, animal) {
   henHouse.statistics[0].collected_eggs += animal.current_eggs;
   document.querySelector(".collected-eggs").innerText = henHouse.statistics[0].collected_eggs;
-  // Remove from array (find by object reference instead of index)
-  console.log(animal);
-  
-  // if(animal.)
+  // Remove from array (find by object reference instead of index)  
   henHouse.allAnimals = henHouse.allAnimals.filter(a => a !== animal);
   // Remove DOM element directly
+  getAllDiedAnimals(animal);
   li.remove();
 
   allHens();

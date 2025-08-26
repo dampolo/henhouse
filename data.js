@@ -1,5 +1,13 @@
 const henHouse = {
-  statistics: [{ collected_eggs: 0 }, { all_laid_eggs: 0 }, {all_hens: 0}, {all_rosters: 0}, {all_nestlings: 0}],
+  statistics: [
+    { collected_eggs: 0 },
+    { all_laid_eggs: 0 },
+    { all_hens: 0 },
+    { all_rosters: 0 },
+    { all_nestlings: 0 },
+    { all_died_hens: 0 },
+    { all_died_roosters: 0 },
+  ],
   allAnimals: [
     {
       name: "Alina",
