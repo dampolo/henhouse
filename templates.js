@@ -1,4 +1,4 @@
-function createAnimalHenElement(animal) {
+export function createAnimalHenElement(animal) {
     const henTemplate = document.querySelector(".list-hen-template");
     const allHens = document.querySelector(".amount-of-all-hens");
     const clone = henTemplate.content.cloneNode(true);
@@ -29,7 +29,7 @@ function createAnimalHenElement(animal) {
 }
 
 
-function createAnimalRoosterElement(animal) {
+export function createAnimalRoosterElement(animal) {
     const roosterTemplate = document.querySelector(".list-rooster-template")
     const allRoosters = document.querySelector(".amount-of-all-roosters");
     const clone = roosterTemplate.content.cloneNode(true);
@@ -40,7 +40,7 @@ function createAnimalRoosterElement(animal) {
     return li;
 }
 
-function createAnimalNestlingElement(animal) {
+export function createAnimalNestlingElement(animal) {
   // <li>
   const li = document.createElement("li");
   li.textContent = `${animal.name}`;

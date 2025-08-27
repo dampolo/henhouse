@@ -1,9 +1,13 @@
+import { getRandomName } from "./random-name.js";
+import { henHouse } from "./data.js";
+import { createAnimalHenElement, createAnimalRoosterElement, createAnimalNestlingElement } from "./templates.js";
+
 const selectAnimal = document.getElementById("animals");
 const animalInput = document.querySelector(".name-new-hen");
 const timeInput = document.querySelector(".time-new-hen");
-let isBreak = false;
+export let isBreak = false;
 
-function breakHenHouse() {
+export function breakHenHouse() {
   isBreak = !isBreak  
    document.querySelector(".break").classList.toggle("is-break")
 }
@@ -18,7 +22,8 @@ selectAnimal.addEventListener("change", () => {
   }
 });
 
-function renderAnimals() {
+
+export function renderAnimals() {
   henHouse.allAnimals.forEach((animal) => {
     if (animal.type === "hen") {
       createAnimalHenElement(animal);
@@ -28,10 +33,10 @@ function renderAnimals() {
     }
   });
 }
-
 renderAnimals();
 
-function addNewAnimal() {
+
+export function addNewAnimal() {
   let newAnimal;
 
   if (selectAnimal.value === "hen") {
@@ -77,7 +82,8 @@ function addNewAnimal() {
   allRoosters();
 }
 
-function collectEggsDirectlyFromHen(li, animal, input, collectBtn) {
+
+export function collectEggsDirectlyFromHen(li, animal, input, collectBtn) {
   const value = parseInt(input.value, 10);
 
   if (isNaN(value) || value <= 0) {
@@ -107,7 +113,9 @@ function collectEggsDirectlyFromHen(li, animal, input, collectBtn) {
   // Update global UI
   allEggs();
 }
-function allEggs() {
+
+
+export function allEggs() {
   const allEggsArray = henHouse.allAnimals.reduce(
     (accumulator, currentItem) => accumulator + currentItem.current_eggs,
     0
@@ -119,8 +127,7 @@ function allEggs() {
 allEggs();
 
 
-
-function allHens() {
+export function allHens() {
   const allhensArray = henHouse.allAnimals.filter(
     (data) => data.type === "hen"
   );
@@ -130,7 +137,8 @@ function allHens() {
 }
 allHens();
 
-function allRoosters() {
+
+export function allRoosters() {
   const allRoostersArray = henHouse.allAnimals.filter(
     (data) => data.type === "rooster"
   );
@@ -140,7 +148,8 @@ function allRoosters() {
 }
 allRoosters();
 
-function allNestlings() {
+
+export function allNestlings() {
   const allNestling = henHouse.allAnimals.reduce(
     (accumulator, currentItem) => accumulator + currentItem.nestling,
     0
@@ -150,16 +159,8 @@ function allNestlings() {
   return allNestling;
 }
 
-function allRoosters() {
-  const allRoostersArray = henHouse.allAnimals.filter(
-    (data) => data.type === "rooster"
-  );
-  document.querySelector(".all-roosters").innerHTML = allRoostersArray.length;
-  henHouse.statistics[3].all_rosters = allRoostersArray.length;
-  return allRoostersArray.length;
-}
 
-function getAllDiedAnimals(animal) {
+export function getAllDiedAnimals(animal) {
   if(animal.type === "hen") {
     henHouse.statistics[5].all_died_hens += 1;
     document.querySelector(".died-hens").innerText = henHouse.statistics[5].all_died_hens;
@@ -169,7 +170,8 @@ function getAllDiedAnimals(animal) {
   }
 }
 
-function addNewEggs(index) {
+
+export function addNewEggs(index) {
   const amountOfEggs = document.querySelector(`.collect-some-eggs${index}`);
   henHouse.allAnimals[index].current_eggs -= parseInt(amountOfEggs.value);
 
@@ -184,7 +186,8 @@ function addNewEggs(index) {
   allEggs();
 }
 
-function animalDied(li, animal) {
+
+export function animalDied(li, animal) {
   henHouse.statistics[0].collected_eggs += animal.current_eggs;
   document.querySelector(".collected-eggs").innerText = henHouse.statistics[0].collected_eggs;
   // Remove from array (find by object reference instead of index)  
@@ -198,19 +201,22 @@ function animalDied(li, animal) {
   allEggs();
 }
 
-function collectAllEggs() {
+
+export function collectAllEggs() {
   henHouse.statistics[0].collected_eggs += henHouse.statistics[1].all_laid_eggs;
   document.querySelector(".collected-eggs").innerText = henHouse.statistics[0].collected_eggs;
   currentEggsToZero();
   activeReactiveButton();
 }
 
-function currentEggsToZero() {
+
+export function currentEggsToZero() {
   henHouse.allAnimals.forEach((animal) => (animal.current_eggs = 0));
   allEggs();
 }
 
-function collectEggs() {
+
+export function collectEggs() {
   const collectedEggs = document.querySelector(".collected-eggs");
 
   const currentTotalCollectedEggs = henHouse.statistics[0].collected_eggs;
@@ -223,7 +229,8 @@ function collectEggs() {
   reduceCurrentLaidEggs(collectedEggsInput);
 }
 
-function activeReactiveButton() {
+
+export function activeReactiveButton() {
   const collectAllEggs = document.querySelector(".collect-eggs");
   const currendLaidEggs = henHouse.statistics[1].all_laid_eggs;
   const collectedEggsInput =
@@ -238,7 +245,8 @@ function activeReactiveButton() {
   }
 }
 
-function reduceCurrentLaidEggs(collectedEggsInput) {
+
+export function reduceCurrentLaidEggs(collectedEggsInput) {
   const allLaidEggs = document.querySelector(".all-laid-eggs");
   const currentTotalLaidEggs = henHouse.statistics[1].all_laid_eggs;
   allLaidEggs.innerText = currentTotalLaidEggs - collectedEggsInput;
@@ -246,7 +254,8 @@ function reduceCurrentLaidEggs(collectedEggsInput) {
   henHouse.statistics[1].all_laid_eggs -= collectedEggsInput;
 }
 
-function layEggs(animal) {
+
+export function layEggs(animal) {
 
     if (animal.layingInterval) return;
 
@@ -275,6 +284,67 @@ function layEggs(animal) {
 
     }, animal.laid_time);
 }
+
+
+function getNestlingCount(animal) {
+  const basisEgg = 30;
+  const getNestingSingleHen = animal.nestling;
+  if (isTypeHen() && isTypeRooster()) {
+    animal.nestling = Math.floor(animal.total_eggs / basisEgg);
+  }
+
+  if (animal.nestling > getNestingSingleHen && !isBreak) {
+    createNestlingObject();
+  }
+  return animal.nestling;
+}
+
+/**
+ * Checks if there is at least one rooster in the henHouse.
+ *
+ * @param {*} params - Currently unused, placeholder for potential future parameters.
+ * @returns {boolean} True if at least one animal in henHouse has type "rooster", otherwise false.
+ */
+function isTypeRooster(params) {
+  return henHouse.allAnimals.some((isrooster) => isrooster.type === "rooster");
+}
+
+/**
+ * Checks if there is at least one hen in the henHouse.
+ *
+ * @param {*} params - Currently unused, placeholder for potential future parameters.
+ * @returns {boolean} True if at least one animal in henHouse has type "rooster", otherwise false.
+ */
+function isTypeHen() {
+  return henHouse.allAnimals.some((ishen) => ishen.type === "hen");
+}
+
+
+export function createNestlingObject() {
+  const allNestlingsList = document.querySelector(".amount-of-all-nestlings");
+
+  // Derive number from current length of allAnimals array
+  const nestlingNumber = henHouse.statistics[4].all_nestlings + 1;
+  // Create nestling and push to array
+  const nestling = {
+    name: `Nestling #${nestlingNumber}`,
+    current_eggs: 0,
+    total_eggs: 0,
+    laid_time: 0,
+    type: "nestling",
+    nestling: 0,
+  };
+  henHouse.allAnimals.push(nestling);
+
+  // Create nestling element and keep reference
+  const nestlingElement = createAnimalNestlingElement(
+    nestling,
+    henHouse.allAnimals.length - 1
+  );
+  allNestlingsList.appendChild(nestlingElement);
+  getRandomName(nestling, nestlingElement)
+}
+
 
 // TEST Funktion
 // document.querySelector('.collect-eggs').addEventListener('click', () => {
