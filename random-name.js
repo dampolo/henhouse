@@ -1,5 +1,6 @@
 import { isBreak, layEggs, allHens, allRoosters } from "./script.js";
 import { createAnimalHenElement, createAnimalRoosterElement } from "./templates.js";
+import { API_URL } from "./config.js";
 
 export function getRandomName(nestling, nestlingElement) {
   const allHensList = document.querySelector(".amount-of-all-hens");
