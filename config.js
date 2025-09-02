@@ -1,1 +1,1 @@
-export const API_URL = "https://randomuser.me/api/"
+export default "https://randomuser.me/api/"

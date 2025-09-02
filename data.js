@@ -1,4 +1,4 @@
-export const henHouse = {
+export default {
   statistics: [
     { collected_eggs: 0 },
     { all_laid_eggs: 0 },

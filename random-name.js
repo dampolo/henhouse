@@ -1,8 +1,8 @@
 import { isBreak, layEggs, allHens, allRoosters } from "./script.js";
 import { createAnimalHenElement, createAnimalRoosterElement } from "./templates.js";
-import { API_URL } from "./config.js";
+import API_URL from "./config.js";
 
-export function getRandomName(nestling, nestlingElement) {
+export default function getRandomName(nestling, nestlingElement) {
   const allHensList = document.querySelector(".amount-of-all-hens");
   const allRoostersList = document.querySelector(".amount-of-all-roosters");
     // After 20 seconds, turn it into a hen or rooster

@@ -1,5 +1,5 @@
-import { getRandomName } from "./random-name.js";
-import { henHouse } from "./data.js";
+import getRandomName from "./random-name.js";
+import henHouse from "./data.js";
 import { createAnimalHenElement, createAnimalRoosterElement, createAnimalNestlingElement } from "./templates.js";
 
 const selectAnimal = document.getElementById("animals");
