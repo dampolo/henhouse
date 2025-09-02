@@ -12,6 +12,8 @@ export function breakHenHouse() {
    document.querySelector(".break").classList.toggle("is-break")
 }
 
+// Add event listener in JS instead of using inline onclick
+document.querySelector(".break-btn").addEventListener("click", breakHenHouse);
 
 selectAnimal.addEventListener("change", () => {
   if (selectAnimal.value === "rooster") {
