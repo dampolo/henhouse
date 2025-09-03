@@ -230,7 +230,7 @@ export function collectEggs() {
 
 
 export function activeReactiveButton() {
-  const collectAllEggs = document.querySelector(".collect-eggs");
+  const collectAllEggs = document.querySelector(".collect-some-eggs-main-button");
   const currendLaidEggs = henHouse.statistics[1].all_laid_eggs;
   const collectedEggsInput =
     parseInt(document.querySelector(".number-of-eggs").value, 10) || 0;
