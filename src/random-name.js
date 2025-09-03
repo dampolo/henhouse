@@ -1,4 +1,4 @@
-import { isBreak, layEggs, allHens, allRoosters } from "./main.js";
+import { isBreak, layEggs, allHens, allRoosters } from "./script.js";
 import { createAnimalHenElement, createAnimalRoosterElement } from "./templates.js";
 import API_URL from "./config.js";
 
