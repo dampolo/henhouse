@@ -1,5 +1,6 @@
+import { breakHenHouse } from "./script";
 
 export default function attachedEvents() {
-    document.querySelector(".break-btn").addEventListener("click", breakHenHouse());
+    document.querySelector(".break-btn").addEventListener("click", () => breakHenHouse());
 }
 
