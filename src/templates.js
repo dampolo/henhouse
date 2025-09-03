@@ -1,4 +1,4 @@
-import { animalDied } from "./script";
+import { animalDied, collectEggsDirectlyFromHen } from "./script";
 
 export function createAnimalHenElement(animal) {
     const henTemplate = document.querySelector(".list-hen-template");
