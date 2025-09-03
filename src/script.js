@@ -1,6 +1,10 @@
+import "./styles/resets.css";
+import "./styles/style.css";
+
+
 import getRandomName from "./random-name.js";
 import henHouse from "./data.js";
-import { createAnimalHenElement, createAnimalRoosterElement, createAnimalNestlingElement } from "./templates.js";
+import { createAnimalHenElement, createAnimalRoosterElement, createAnimalNestlingElement  } from "./templates.js";
 
 const selectAnimal = document.getElementById("animals");
 const animalInput = document.querySelector(".name-new-hen");
@@ -12,7 +16,6 @@ export function breakHenHouse() {
    document.querySelector(".break").classList.toggle("is-break")
 }
 
-// Add event listener in JS instead of using inline onclick
 document.querySelector(".break-btn").addEventListener("click", breakHenHouse);
 
 selectAnimal.addEventListener("change", () => {
@@ -210,7 +213,6 @@ export function collectAllEggs() {
   currentEggsToZero();
   activeReactiveButton();
 }
-
 
 export function currentEggsToZero() {
   henHouse.allAnimals.forEach((animal) => (animal.current_eggs = 0));
