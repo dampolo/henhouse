@@ -1,3 +1,5 @@
+import { animalDied } from "./script";
+
 export function createAnimalHenElement(animal) {
     const henTemplate = document.querySelector(".list-hen-template");
     const allHens = document.querySelector(".amount-of-all-hens");
