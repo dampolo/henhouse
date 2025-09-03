@@ -1,3 +1,3 @@
 import "./styles/resets.css";
-import "./styles/style.css";
+import "./styles/styles.css";
 import "./script.js";
